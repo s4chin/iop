@@ -16,9 +16,9 @@ def hello():
 
 
 
-@app.route("/res", methods=['GET, POST'])
+@app.route("/upload", methods=['POST'])
 def upload():
-    file = request.files['image']
+    file = request.files.get('image', '')
     if file:
         filename = secure_filename(file.filename)
         return jsonify(result=0.598)
