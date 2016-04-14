@@ -1,4 +1,5 @@
 import os
+import random
 from flask import Flask, request, jsonify
 from werkzeug import secure_filename
 
@@ -21,7 +22,7 @@ def upload():
     file = request.files.get('image', '')
     if file:
         filename = secure_filename(file.filename)
-        return jsonify(result=0.598)
+        return jsonify(result=random.random())
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
