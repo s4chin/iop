@@ -2,7 +2,6 @@
 import numpy as np
 import cv2
 import math
-import time
 
 def get_features(Patch=0):
     #Patch = cv2.imread('patch.jpg', 0)
@@ -15,7 +14,6 @@ def get_features(Patch=0):
     b = y-16
     
     I2 = [[0.0]*32 for i in range(32)]
-    #time.sleep(5)
     #selecting patch of size 32*32 pixels right in the middle
     for i in range(32):
 	    for j in range(32):
