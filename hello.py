@@ -1,11 +1,15 @@
-import os
+import os, io
 import random
 from flask import Flask, request, jsonify
 from werkzeug import secure_filename
+import numpy as np
+import cv2
+import glcm
 
 app = Flask(__name__)
 
 app.config['ALLOWED_EXTENSIONS'] = set(['png', 'jpg', 'jpeg', 'gif'])
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024 # 16 MB
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -15,17 +19,23 @@ def allowed_file(filename):
 def hello():
     return "Hello, world!"
 
-
-
 @app.route("/upload", methods=['POST'])
 def upload():
-    file = request.files.get('image', '')
-    if file:
-        filename = secure_filename(file.filename)
-        return jsonify(result=random.random())
+    photo = request.files.get('image', '')
+    if photo:
+        filename = secure_filename(photo.filename)
+        in_memory_file = io.BytesIO()
+        photo.save(in_memory_file)
+        data = np.fromstring(in_memory_file.getvalue(), dtype=np.uint8)
+        color_image_flag = 1
+        img = cv2.imdecode(data, 0) # 0 flag for grayscale
+        result = glcm.get_features(img)
+        return jsonify(result)
+    else:
+        return jsonify(result=404)
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
-    app.run(host='0.0.0.0', port=port)
+    app.run(host='0.0.0.0', port=port, debug=True)
 
 # and allowed_file(file.filename)
