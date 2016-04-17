@@ -6,7 +6,6 @@ import time
 
 def get_features(Patch=0):
     #Patch = cv2.imread('patch.jpg', 0)
-    
     Patch = Patch.tolist()
     x = len(Patch)
     y = len(Patch[0])
