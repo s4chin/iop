@@ -30,7 +30,7 @@ def get_features(Patch=0):
 
     for i in range(0, 32):
         for j in range(0, 32):
-		    Patch_scaled[i][j] = int(math.floor(Patch_scaled[i][j]*32.0/255.0))
+		    Patch_scaled[i][j] = int(math.floor(Patch_scaled[i][j]*31.0/255.0))
 
     Glcm = [[0]*32 for i in range(32)]
     for i in range(0, 32):
