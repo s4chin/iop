@@ -34,25 +34,25 @@ def extract():
     else:
         abort(404)
 
-@app.route("/segment", methods=['POST'])
-def segment():
-    photo = request.files.get('image', '')
-    if photo:
-        filename = secure_filename(photo.filename)
-        #return send_file('python.png', mimetype='image/png')
-        in_memory_file = io.BytesIO()
-        photo.save(in_memory_file)
-        data = np.fromstring(in_memory_file.getvalue(), dtype=np.uint8)
-        color_image_flag = 1
-        img = cv2.imdecode(data, 0) # 0 flag for grayscale
-        ret, jpg = cv2.imencode('.jpg', img)
-        jpg = jpg.tobytes()
-        return send_file(io.BytesIO(jpg),
-                         attachment_filename='image.jpg',
-                         mimetype='image/jpg')
-
-    else:
-        abort(404)
+# @app.route("/segment", methods=['POST'])
+# def segment():
+#     photo = request.files.get('image', '')
+#     if photo:
+#         filename = secure_filename(photo.filename)
+#         #return send_file('python.png', mimetype='image/png')
+#         in_memory_file = io.BytesIO()
+#         photo.save(in_memory_file)
+#         data = np.fromstring(in_memory_file.getvalue(), dtype=np.uint8)
+#         color_image_flag = 1
+#         img = cv2.imdecode(data, 0) # 0 flag for grayscale
+#         ret, jpg = cv2.imencode('.jpg', img)
+#         jpg = jpg.tobytes()
+#         return send_file(io.BytesIO(jpg),
+#                          attachment_filename='image.jpg',
+#                          mimetype='image/jpg')
+# 
+#     else:
+#         abort(404)
 
 @app.route("/upload", methods=['POST'])
 def upload():
