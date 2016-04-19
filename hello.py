@@ -19,8 +19,8 @@ def allowed_file(filename):
 def hello():
     return "Hello, world!"
 
-@app.route("/upload", methods=['POST'])
-def upload():
+@app.route("/extract", methods=['POST'])
+def extract():
     photo = request.files.get('image', '')
     if photo:
         filename = secure_filename(photo.filename)
@@ -31,6 +31,15 @@ def upload():
         img = cv2.imdecode(data, 0) # 0 flag for grayscale
         result = glcm.get_features(img)
         return jsonify(result)
+    else:
+        return jsonify(result=404)
+
+@app.route("/upload", methods=['POST'])
+def upload():
+    photo = request.files.get('image', '')
+    if photo:
+        filename = secure_filename(photo.filename)
+        return jsonify({"result": random.random()})
     else:
         return jsonify(result=404)
 

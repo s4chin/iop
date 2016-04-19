@@ -106,7 +106,6 @@ def get_features(Patch=0):
             GLCM_correlation = GLCM_correlation + Glcm_probdist[i][j]*(i-GLCM_mean_i)*(j-GLCM_mean_j)/math.sqrt(GLCM_variance_i*GLCM_variance_j)
 		
     result = {}
-    result['result'] = 0.123
     result['contrast'] = contrast	
     result['dissimilarity'] = dissimilarity
     result['homogeneity'] = homogeneity
