@@ -1,6 +1,6 @@
 import os, io
 import random
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_file, abort
 from werkzeug import secure_filename
 import numpy as np
 import cv2
@@ -32,7 +32,16 @@ def extract():
         result = glcm.get_features(img)
         return jsonify(result)
     else:
-        return jsonify(result=404)
+        abort(404)
+
+@app.route("/segment", methods=['POST'])
+def segment():
+    photo = request.files.get('image', '')
+    if photo:
+        filename = secure_filename(photo.filename)
+        return send_file('python.png', mimetype='image/png')
+    else:
+        abort(404)
 
 @app.route("/upload", methods=['POST'])
 def upload():
@@ -41,7 +50,7 @@ def upload():
         filename = secure_filename(photo.filename)
         return jsonify({"result": random.random()})
     else:
-        return jsonify(result=404)
+        abort(404)
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
