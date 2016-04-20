@@ -23,6 +23,7 @@ def get_result(X):
     #print Y
     Y = Y.tolist()
     Y = [tansig(i) for i in Y]
+    Y = np.array(Y)
     #print Y
     Z = np.dot(W, Y)
     #print Z
