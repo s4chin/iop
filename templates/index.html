@@ -1,0 +1,18 @@
+<html>
+  <head>
+    <title>Feature Extraction of image</title>
+  </head>
+  <body>
+    <p>Extract features</p>
+    <form method="POST" enctype="multipart/form-data" action="https://indorp.herokuapp.com/extract">
+      <input type="file" name="image" />
+      <input type="submit" />
+    </form>
+    <br>
+    <p>Find if cancer</p>
+    <form method="POST" enctype="multipart/form-data" action="https://indorp.herokuapp.com/upload">
+      <input type="file" name="image" />
+      <input type="submit" />
+    </form>
+  </body>
+</html>

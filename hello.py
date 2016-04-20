@@ -1,6 +1,6 @@
 import os, io
 import random
-from flask import Flask, request, jsonify, send_file, abort
+from flask import Flask, request, jsonify, send_file, abort, render_template
 from werkzeug import secure_filename
 import numpy as np
 import cv2
@@ -18,7 +18,7 @@ def allowed_file(filename):
 
 @app.route("/")
 def hello():
-    return "Hello, world!"
+    return render_template('index.html')
 
 @app.route("/extract", methods=['POST'])
 def extract():
